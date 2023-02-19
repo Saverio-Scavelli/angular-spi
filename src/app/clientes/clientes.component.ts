@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
+import { tap,  } from 'rxjs';
 import Swal from 'sweetalert2';
 
 
@@ -16,15 +17,41 @@ export class ClientesComponent {
   constructor(private clienteService: ClienteService) { }
 
   ngOnInit() {
-     this.clienteService.getClientes().subscribe(
-       (oclientes) => 
-            {this.clientes = oclientes}
-      );
+
+    this.clienteService.getClientes().pipe(
+      tap(
+        
+        clientes => {
+
+          this.clientes = clientes;
+
+          console.log('ClientesComponent: tap 3');
+          clientes.forEach(cliente => {
+            console.log(cliente.nombre);
+          });
+        }
+      )
+    ).subscribe( );
+
+    // this.clienteService.getClientes().subscribe(
+    //   clientes => this.clientes = clientes
+    // );
+
   }
+
+  // this.clienteService.getClientes().pipe(
+  //   tap(clientes => {
+  //     console.log('ClientesComponent: tap 3');
+  //     clientes.forEach(cliente => {
+  //       console.log(cliente.nombre);
+  //     })
+  //   }
+  //   ).subscribe();
+  
 
   delete (cliente: Cliente): void {
     Swal.fire({
-      title: 'Está Geguro?',
+      title: 'Está Seguro?',
       text: `Seguro que desea elemina el cliente ${cliente.nombre} ${cliente.apellido}`,
       icon: 'warning',
       showCancelButton: true,

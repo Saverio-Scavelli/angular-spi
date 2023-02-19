@@ -31,7 +31,7 @@
                     <td>{{cliente.nombre}}</td>
                     <td>{{cliente.apellido}}</td>
                     <td>{{cliente.email}}</td>
-                    <td>{{ cliente.createAt}} </td>
+                    <td>{{cliente.createAt | date:"EE dd, MM yy"}} </td>
                     <td>
                         <button class="btn btn-danger" role="button" (click)="delete(cliente)" type="button">Eliminar</button>
                     <td>

@@ -1,16 +1,20 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { DirectivaComponent } from './directiva/directiva.component';
-import { ClientesComponent } from './clientes/clientes.component';
-import { ClienteService } from './clientes/cliente.service';
-import { RouterModule, Routes } from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
-import { FormComponent } from './clientes/form.component';
+import { HttpClientModule } from '@angular/common/http';
+import localeES from '@angular/common/locales/es';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
+import { ClienteService } from './clientes/cliente.service';
+import { ClientesComponent } from './clientes/clientes.component';
+import { FormComponent } from './clientes/form.component';
+import { DirectivaComponent } from './directiva/directiva.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import {registerLocaleData } from '@angular/common';
+
+
+registerLocaleData(localeES, 'es');
 
 
 
@@ -38,7 +42,7 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [ClienteService],
+  providers: [ClienteService, {provide: LOCALE_ID, useValue: 'es'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
